@@ -21,11 +21,7 @@ class SongRepositoryFirebase extends SongRepository {
     final Map<String, dynamic> songsMap =
         json.decode(response.body);
 
-    return songsMap.entries.map((entry) {
-      final Map<String, dynamic> songJson =
-          Map<String, dynamic>.from(entry.value);
-      return SongDto.fromJson(entry.key, songJson);
-    }).toList();
+    return songsMap.entries.map((entry) => SongDto.fromJson(entry.key, entry.value)).toList();
   }
 
   @override
