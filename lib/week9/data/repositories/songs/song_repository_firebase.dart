@@ -4,8 +4,6 @@ import 'package:homework_week7/week9/data/repositories/songs/song_repository.dar
 import 'package:homework_week7/week9/model/songs/song.dart';
 import 'package:http/http.dart' as http;
 
-
-
 class SongRepositoryFirebase extends SongRepository {
   final Uri songsUri = Uri.https(
     'week9-firebase-database-default-rtdb.asia-southeast1.firebasedatabase.app',
@@ -20,15 +18,12 @@ class SongRepositoryFirebase extends SongRepository {
       throw Exception('Failed to load songs');
     }
 
-    final Map<String, dynamic> root =
-        json.decode(response.body) as Map<String, dynamic>;
-
     final Map<String, dynamic> songsMap =
-        (root['songs'] as Map<String, dynamic>?) ?? {};
+        json.decode(response.body);
 
     return songsMap.entries.map((entry) {
       final Map<String, dynamic> songJson =
-          Map<String, dynamic>.from(entry.value as Map);
+          Map<String, dynamic>.from(entry.value);
       return SongDto.fromJson(entry.key, songJson);
     }).toList();
   }
@@ -51,7 +46,7 @@ class SongRepositoryFirebase extends SongRepository {
     }
 
     final Map<String, dynamic> songJson =
-        json.decode(response.body) as Map<String, dynamic>;
+        json.decode(response.body);
 
     return SongDto.fromJson(id, songJson);
   }
