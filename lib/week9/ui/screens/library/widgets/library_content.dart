@@ -33,10 +33,11 @@ class LibraryContent extends StatelessWidget {
           itemCount: songs.length,
           itemBuilder: (context, index) => SongTile(
             song: songs[index],
+            artist: mv.songDetailService.getArtist(songs[index]),
             isPlaying: mv.isSongPlaying(songs[index]),
             onTap: () {
               mv.start(songs[index]);
-            },
+            }
           ),
         );
     }

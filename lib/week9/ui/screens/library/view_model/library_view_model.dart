@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:homework_week7/week9/data/repositories/artists/artist_repository.dart';
 import 'package:homework_week7/week9/data/repositories/songs/song_repository.dart';
-import 'package:homework_week7/week9/model/artists/artist.dart';
 import 'package:homework_week7/week9/model/songs/song.dart';
+import 'package:homework_week7/week9/service/song_detail_service.dart';
 import 'package:homework_week7/week9/ui/states/player_state.dart';
 import 'package:homework_week7/week9/ui/utils/async_value.dart';
 
 class LibraryViewModel extends ChangeNotifier {
-  final SongRepository songRepository;
+  final SongDetailService songDetailService;
   final PlayerState playerState;
 
   AsyncValue<List<Song>> songsValue = AsyncValue.loading();
 
   LibraryViewModel({
-    required this.songRepository,
     required this.playerState,
-
+    required this.songDetailService,
   }) {
     playerState.addListener(notifyListeners);
 
@@ -40,9 +38,7 @@ class LibraryViewModel extends ChangeNotifier {
 
     try {
       // 2- Fetch is successfull
-      List<Song> songs = await songRepository.fetchSongs();
-
-
+      List<Song> songs = await songDetailService.songRepository.fetchSongs();
 
       songsValue = AsyncValue.success(songs);
     } catch (e) {
