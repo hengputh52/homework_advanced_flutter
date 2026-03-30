@@ -4,11 +4,12 @@ import '../../model/songs/song.dart';
 
 class PlayerState extends ChangeNotifier {
   Song? _currentSong;
- 
-  bool isLike = false;
+  Song? _likedSong;
   Song? get currentSong => _currentSong;
- 
+  Song? get likedSong => _likedSong;
+  bool isLiked = false;
 
+  List<String> listLikedSong = [];
   void start(Song song) {
     _currentSong = song;
 
@@ -22,8 +23,14 @@ class PlayerState extends ChangeNotifier {
   }
 
   void onLike(Song song) {
-    isLike = !isLike;
-    
+    if (listLikedSong.contains(song.id)) {
+      listLikedSong.remove(song.id);
+    } else {
+      listLikedSong.add(song.id);
+    }
+
     notifyListeners();
   }
+
+  bool isLikedSong(Song song) => listLikedSong.contains(song.id);
 }

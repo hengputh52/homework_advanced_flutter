@@ -7,13 +7,15 @@ class LibraryItemTile extends StatelessWidget {
     required this.data,
     required this.isPlaying,
     required this.onTap,
-    required this.onLike
+    required this.onLike,
+    required this.isLiked
   });
 
   final LibraryItemData data;
   final bool isPlaying;
   final VoidCallback onTap;
   final VoidCallback onLike;
+  final bool isLiked;
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +42,13 @@ class LibraryItemTile extends StatelessWidget {
             backgroundImage: NetworkImage(data.song.imageUrl.toString()),
           ),
           trailing: Row(
-             mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 isPlaying ? "Playing" : "",
                 style: TextStyle(color: Colors.amber),
               ),
-              IconButton(onPressed: onLike, icon: Icon(Icons.favorite)),
+              IconButton(onPressed: onLike, icon: isLiked? Icon(Icons.favorite) : Icon(Icons.favorite_border_outlined)),
             ],
           ),
         ),

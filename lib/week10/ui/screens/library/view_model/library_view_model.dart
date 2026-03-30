@@ -79,5 +79,5 @@ class LibraryViewModel extends ChangeNotifier {
 
   void onLike(Song song) => playerState.onLike(song);
 
-  
+  bool isLikedSong(Song song) => playerState.isLikedSong(song);
 }

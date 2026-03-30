@@ -48,15 +48,11 @@ class SongRepositoryFirebase extends SongRepository {
       Map<String, dynamic> songJson = json.decode(curentLike.body);
       int like = songJson['numberOfLikes'];
 
-      final http.Response updateLike = await http.put(
+      final http.Response updateLike = await http.patch(
         currentLikeUri,
         headers: {'Content-Type': 'application/json'},
         body: like + 1,
       );
-
-      if (updateLike.statusCode == 200) {
-        print("Like update");
-      }
     }
   }
 }
